@@ -9,7 +9,7 @@ jobs:
     name: Sync issues with table
     steps:
       - name: Sync issues with table
-        uses: richkuz/table-github-actions@master
+        uses: richkuz/table-github-actions@main
         id: sync_with_table
         with:
           sync-with-table: |
@@ -17,20 +17,20 @@ jobs:
               {"label": "label1", "tableNumber": "1"}
             ]
           ghToken: ${{ secrets.GITHUB_TOKEN }}
-  sync_issues_with_table_fields:
-    runs-on: ubuntu-latest
-    name: Sync issue fields with table fields
-    steps:
-      - name: Sync issues with table
-        uses: richkuz/table-github-actions@master
-        id: sync_with_table
-        with:
-          sync-fields: |
-            [
-              {
-                "label": "label2",
-                "issueField": "",
-                "tableNumber": "1",
-                "tableField": ""}
-            ]
-          ghToken: ${{ secrets.GITHUB_TOKEN }}
+#   sync_issues_with_table_fields:
+#     runs-on: ubuntu-latest
+#     name: Sync issue fields with table fields
+#     steps:
+#       - name: Sync issues with table
+#         uses: richkuz/table-github-actions@main
+#         id: sync_with_table
+#         with:
+#           sync-fields: |
+#             [
+#               {
+#                 "label": "label2",
+#                 "issueField": "",
+#                 "tableNumber": "1",
+#                 "tableField": ""}
+#             ]
+#           ghToken: ${{ secrets.GITHUB_TOKEN }}
