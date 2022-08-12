@@ -8,10 +8,13 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request;
+            const comment = `A documentation preview will be available soon:</br><ul><li>📚 [HTML diff](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/diff)</li><li>📘 [Enterprise Search Guide](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/guide/en/enterprise-search/master/index.html)</li><li>📙 [App Search Guide](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/guide/en/app-search/master/index.html)</li><li>📙 [Workplace Search Guide](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/guide/en/workplace-search/master/index.html)</li></ui>`;
+            console.log(comment);
             
-            await github.rest.pulls.createReviewComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-              body: `A documentation preview will be available soon:</br><ul><li>📚 [HTML diff](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/diff)</li><li>📘 [Enterprise Search Guide](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/guide/en/enterprise-search/master/index.html)</li><li>📙 [App Search Guide](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/guide/en/app-search/master/index.html)</li><li>📙 [Workplace Search Guide](https://${context.repo.repo}_${pr.number}.docs-preview.app.elstc.co/guide/en/workplace-search/master/index.html)</li></ui>`,
-            });
+            const github_token = core.getInput('GITHUB_TOKEN');
+            const octokit = new github.GitHub(github_token);
+            const new_comment = await octokit.issues.createComment({
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: comment,
+              });
