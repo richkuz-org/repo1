@@ -1,0 +1,18 @@
+on: pull_request_target
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            console.log(JSON.stringify(pr));
+            
+            await github.rest.pulls.createReviewComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.pull_request.number,
+              body: `A comment`,
+            });
